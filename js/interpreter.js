@@ -1,8 +1,8 @@
 var Interpreter = function (source, tape, pointer,
                             out, awaitInput, instruction) {
     /*
-     * Brainfuck Interpreter Class
-     * @source: Brainfuck script
+     * Brain Interpreter Class
+     * @source: Brain script
      * @tape: Tape model
      * @pointer: Pointer model
      * @out: Output callback
@@ -29,7 +29,7 @@ var Interpreter = function (source, tape, pointer,
         if (action >= source.length) {
             if (jumps.length === 0) throw {
                 "name": "End",
-                "message": "End of brainfuck script."
+                "message": "End of brain script."
             };
             else {
                 throw error("Mismatched parentheses.");
