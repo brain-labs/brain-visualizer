@@ -116,7 +116,7 @@ var TapeView = Backbone.View.extend({
 
 
 var InterpreterView = Backbone.View.extend({
-    delay: "90",
+    delay: 30,
     el: "#interpreter",
     initialize: function (options) {
         this.pointer = options.pointer;
@@ -131,34 +131,21 @@ var InterpreterView = Backbone.View.extend({
         "click #continue": "loop",
         "click #stop": "stop",
         "change #input": "receiveInput",
-        "change #delay": "changeDelay",
-        "input #source": "setShareURL",
+        "change #delay": "changeDelay"
     },
     render: function () {
-      this.input  = this.$el.find("#input");
-      this.output = this.$el.find("#output");
-      this.preview = this.$el.find("#preview");
-      this.buttons = new ButtonSwitchView({
-          el: this.el
-      }).render();
-      new TapeView({
-          model: this.tape,
-          pointer: this.pointer,
-          interpreter: this
-      }).render();
-      this.preview.hide();
-      this.setSourceFromURL();
-      // this.buttons.run();
-    },
-    setShareURL: function () {
-      location.hash = "#" + btoa(this.editor.val())
-    },
-    setSourceFromURL: function () {
-      if (location.hash) {
-        var bfCode = atob(location.hash.replace(/^#/, ""))
-        this.editor.val(decodeURIComponent(bfCode));
-        //_.defer(this.run.bind(this));
-      }
+	    this.input  = this.$el.find("#input");
+        this.output = this.$el.find("#output");
+        this.preview = this.$el.find("#preview");
+        this.buttons = new ButtonSwitchView({
+            el: this.el
+        }).render();
+        new TapeView({
+            model: this.tape,
+            pointer: this.pointer,
+            interpreter: this
+        }).render();
+        this.preview.hide();
     },
     showPreview: function () {
         this.preview.show();
@@ -196,7 +183,6 @@ var InterpreterView = Backbone.View.extend({
     },
     awaitInput: function (cell) {
         this.input.parent().show();
-        this.input.focus();
         this.pause();
         this.inputTarget = cell;
     },
@@ -233,7 +219,7 @@ var InterpreterView = Backbone.View.extend({
     },
     step: function () {
         try {
-            this.interpreter.next($("#optimize").is(':checked'));
+            this.interpreter.next();
         } catch (e) {
             this.pause();
             this.buttons.stop();
@@ -241,8 +227,6 @@ var InterpreterView = Backbone.View.extend({
             if (e.name == "Error") {
                 this.output.text(e.message);
                 this.output.addClass("error");
-            } else if (e.name != "End") {
-                console.error(e);
             }
         }
     },

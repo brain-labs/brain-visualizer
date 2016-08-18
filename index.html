@@ -34,14 +34,6 @@
                     <label for="delay">Delay</label>
                     <input id="delay" value="100" type="range" step="30" min="30" max="300"/>
                 </div>
-                <div id="optimize-box">
-                    <label for="optimize">Optimize?</label>
-                    <input id="optimize" type="checkbox"/>
-                </div>
-                <div id="exclaim-box">
-                    <label for="exclaim">!</label>
-                    <input id="exclaim" type="checkbox"/>
-                </div>
                 <div id="input-box">
                     <label>Waiting for input</label>
                     <input type="text" id="input" maxlength="1"/>
@@ -70,7 +62,7 @@
 > + .                   print '!'
 > .                     print '\n'</textarea>
         <h3>Output</h3>
-        <pre id="output"></pre>
+        <p id="output"></p>
         </section>
     </div>
 
@@ -110,10 +102,6 @@
             <tr>
                 <td style="text-align:center"><code>]</code></td>
                 <td>if the byte at the data pointer is nonzero, then instead of moving the instruction pointer forward to the next command, jump it <i>back</i> to the command after the <i>matching</i> <code>[</code> command.</td>
-            </tr>
-            <tr>
-                <td style="text-align:center"><code>!</code></td>
-		<td>if the exclaim box is checked, allows the interpreter to use all characters to the right of the <code>!</code> as program input.</td>
             </tr>
             </tbody></table>
 
