@@ -75,104 +75,99 @@ var Interpreter = function (source, tape, pointer,
       action++;
       return this.next(optimize);
     }
+
     var index = pointer.get("index");
-    if (index < 0 || index >= tape.models.length) {
-      throw error("Memory error: " + index);
-    }
     instruction(action);
     var token = source[action];
-    var cell = tape.models[index];
+    var cell = tape.cellAt(index);
     switch (token) {
-      case "<":
-        lookahead = 1;
-        while(optimize&&source[action+lookahead]==="<"){
-          lookahead++;
-        }
-        action += lookahead - 1;
-        pointer.left(lookahead);
+    case "<":
+        pointer.left();
         break;
 
-      case ">":
-        lookahead = 1;
-        while(optimize&&source[action+lookahead]===">"){
-          lookahead++;
-        }
-        action += lookahead - 1;
-        pointer.right(lookahead);
+    case ">":
+        pointer.right();
         break;
 
-      case "-":
-        lookahead = 1;
-        while(optimize&&source[action+lookahead]==="-"){
-          lookahead++;
-        }
-        action += lookahead - 1;
-        cell.dec(lookahead);
+    case "-":
+        cell.dec();
         break;
 
-      case "+":
-        lookahead = 1;
-        while(optimize&&source[action+lookahead]==="+"){
-          lookahead++;
-        }
-        action += lookahead - 1;
-        cell.inc(lookahead);
+    case "+":
+        cell.inc();
         break;
 
-      case ",":
-        if ($('#exclaim').is(':checked')) {
-          if (inputBuffer.hasInput()) {
-            cell.set("value",inputBuffer.getNext());
-          } else {
-            cell.set("value",0);
-          }
-        } else {
-          awaitInput(cell);
-        }
+    case ",":
+        awaitInput(cell);
         break;
 
-      case ".":
+    case ".":
         out(cell);
         break;
 
-      case "[":
-        if(optimize&&source[action+1]==="-"&&source[action+2]==="]"){
-          cell.set("value",0);
-        }
+    case "[":
         if (cell.get("value") != 0) {
-          jumps.push(action);
+            jumps.push(action);
         } else {
-          var loops = 1;
-          while (loops > 0) {
-            action++;
-            if (action >= source.length) {
-              throw error("Mismatched parentheses.");
+            var loops = 1;
+            while (loops > 0) {
+                action++;
+                if (action >= source.length) {
+                    throw error("Mismatched parentheses.");
+                }
+                
+                if (source[action] === "]") {
+                    loops--;
+                } else if (source[action] === "[") {
+                    loops++;
+                }
             }
+        }
+        break;
 
-            if (source[action] === "]") {
-              loops--;
-            } else if (source[action] === "[") {
-              loops++;
-            }
+    case ".":
+      out(cell);
+      break;
+
+    case "[":
+      if(optimize&&source[action+1]==="-"&&source[action+2]==="]"){
+        cell.set("value",0);
+      }
+      if (cell.get("value") != 0) {
+        jumps.push(action);
+      } else {
+        var loops = 1;
+        while (loops > 0) {
+          action++;
+          if (action >= source.length) {
+            throw error("Mismatched parentheses.");
+          }
+
+          if (source[action] === "]") {
+            loops--;
+          } else if (source[action] === "[") {
+            loops++;
           }
         }
-        break;
+      }
+      break;
 
-      case "]":
-        if (jumps.length === 0) {
-          throw error("Mismatched parentheses.");
-        }
+    case "]":
+      if (jumps.length === 0) {
+        throw error("Mismatched parentheses.");
+      }
 
-        if (cell.get("value") != 0) {
-          action = jumps[jumps.length - 1];
-        } else {
-          jumps.pop();
-        }
-        break; 
-      case "!":
-        tokens = "";
-        break;
+      if (cell.get("value") != 0) {
+        action = jumps[jumps.length - 1];
+      } else {
+        jumps.pop();
+      }
+      break; 
+    case "!":
+      tokens = "";
+      break;
     }
+    
     return action++;
   }
 };
