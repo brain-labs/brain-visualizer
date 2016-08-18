@@ -10,15 +10,15 @@ var Cell = Backbone.Model.extend({
         this.set("index", options.index);
     },
     inc: function () {
-        if (this.get("value") == 255) {
-            this.set("value", 0);
+        if (this.get("value") >= 32767) {
+            this.set("value", -32768);
         } else {
             this.increase("value", 1);
         }
     },
     dec: function () {
-        if (this.get("value") == 0) {
-            this.set("value", 255);
+        if (this.get("value") <= -32768) {
+            this.set("value", 32767);
         } else {
             this.increase("value", -1);
         }
