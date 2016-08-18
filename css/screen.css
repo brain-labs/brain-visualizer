@@ -23,7 +23,7 @@ section.machine {
             list-style-type: none;
             float: left;
             margin-top: -9px;
-            width: 30px;
+            width: 48px;
             height: 23px;
             text-align: center;
             color: gray;
@@ -45,7 +45,7 @@ section.machine {
 
         section.machine div.pointer {
            float: left;
-           width: 31px;
+           width: 48px;
         }
 
         section.machine div.pointer em {
@@ -54,7 +54,7 @@ section.machine {
             width: 10px;
             height: 15px;
             margin-top: 6px;
-            margin-left: 10px;
+            margin-left: 18px;
         }
 
         section.machine div.pointer em:before {
