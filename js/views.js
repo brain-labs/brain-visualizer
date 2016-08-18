@@ -179,6 +179,8 @@ var InterpreterView = Backbone.View.extend({
         this.step();
     },
     out: function (cell) {
+        if (cell.char() == "\n")
+            this.output.append("<br />");
         this.output.append(cell.char());
     },
     awaitInput: function (cell) {

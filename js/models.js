@@ -27,6 +27,9 @@ var Cell = Backbone.Model.extend({
         this.set("value", c.charCodeAt(0));
     },
     char: function () {
+        if (this.get("value") == 10 || 
+            this.get("value") == 13)
+            return "\n";
         return String.fromCharCode(this.get("value"))
     }
 });
