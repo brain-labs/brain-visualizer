@@ -139,36 +139,6 @@ section.machine {
         section.editor #delay-box input {
 
         }
-        
-        section.editor #optimize-box {
-            float: right;
-            margin-right: 25px;
-            text-align:center;
-        }
-
-        section.editor #optimize-box label {
-            display: block;
-            color: gray;
-        }
-
-        section.editor #optimize-box input {
-          
-        }
-
-        section.editor #exclaim-box {
-            float: right;
-            margin-right: 25px;
-            text-align:center;
-        }
-
-        section.editor #exclaim-box label {
-            display: block;
-            color: gray;
-        }
-
-        section.editor #exclaim-box input {
-          
-        }
 
         section.editor span.caret {
             border-radius: 4px;
