@@ -15,7 +15,7 @@ var Interpreter = function (source, tape, pointer,
      *    pointer.get("index") // 1
      *
      * */
-    var tokens = "<>+-.,[]$#*/%{};";
+    var tokens = "<>+-.,[]$#*/%{};!";
     var jumps = [], action = 0;
     var iterations = [];
 
@@ -86,17 +86,22 @@ var Interpreter = function (source, tape, pointer,
 
         case "[":
         case "{":
+        case "!":
             if (cell.value() != 0 && token === "[") {
                 jumps.push(action);
-            } else if (cell.value() > 0) {
+            } else if (cell.value() > 0 && token === "{") {
                 iterations.push(cell.value());
                 jumps.push(action);
             }else {
+                if (token === "!" && jumps.length === 0) {
+                    throw error("There is no loop to jump out.");
+                }
+
                 var loops = 1;
                 while (loops > 0) {
                     action++;
                     if (action >= source.length) {
-                        throw error("Mismatched parentheses.");
+                        throw error("Mismatched dsparentheses.");
                     }
 
                     // we gotta add the ternary if to be
@@ -105,6 +110,15 @@ var Interpreter = function (source, tape, pointer,
                         || source[action] === "}"
                         || source[action] === ";") {
                         loops--;
+                        if(token === "!") {
+                            var theJump = source[jumps[jumps.length - 1]];
+                            if (theJump === "["){
+                                jumps.pop();
+                            } else if (theJump === "{") {
+                                jumps.pop();
+                                iterations.pop();
+                            }
+                        }
                     } else if (source[action] === "["
                                || source[action] === "{"
                                || source[action] === "?") {
@@ -118,7 +132,7 @@ var Interpreter = function (source, tape, pointer,
         case "}":
         case ";":
             if (jumps.length === 0) {
-                throw error("Mismatched parentheses.");
+                throw error("Mismatched fd parentheses.");
             }
 
             if (source[jumps[jumps.length - 1]] === "{") {
