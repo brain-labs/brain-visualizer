@@ -23,6 +23,15 @@ var Cell = Backbone.Model.extend({
             this.increase("value", -1);
         }
     },
+    mul: function(prevCell) {
+        this.set("value", this.value() * prevCell.value());
+    },
+    div: function(prevCell) {
+        this.set("value", this.value() / prevCell.value());
+    },
+    rem: function(prevCell) {
+        this.set("value", this.value() % prevCell.value());
+    },
     put: function (c) {
         this.set("value", c.charCodeAt(0));
     },

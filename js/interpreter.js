@@ -15,7 +15,7 @@ var Interpreter = function (source, tape, pointer,
      *    pointer.get("index") // 1
      *
      * */
-    var tokens = "<>+-.,[]$#";
+    var tokens = "<>+-.,[]$#*/%";
     var jumps = [], action = 0;
 
     var error = function (message) {
@@ -59,6 +59,18 @@ var Interpreter = function (source, tape, pointer,
 
         case "+":
             cell.inc();
+            break;
+
+        case "*":
+            cell.mul(tape.cellAt(index-1));
+            break;
+
+        case "/":
+            cell.div(tape.cellAt(index-1));
+            break;
+
+        case "%":
+            cell.rem(tape.cellAt(index-1));
             break;
 
         case ",":
