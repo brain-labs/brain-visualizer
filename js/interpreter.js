@@ -15,8 +15,9 @@ var Interpreter = function (source, tape, pointer,
      *    pointer.get("index") // 1
      *
      * */
-    var tokens = "<>+-.,[]$#*/%";
+    var tokens = "<>+-.,[]$#*/%{};";
     var jumps = [], action = 0;
+    var iterations = [];
 
     var error = function (message) {
         return {
@@ -84,9 +85,13 @@ var Interpreter = function (source, tape, pointer,
             break;
 
         case "[":
-            if (cell.get("value") != 0) {
+        case "{":
+            if (cell.value() != 0 && token === "[") {
                 jumps.push(action);
-            } else {
+            } else if (cell.value() > 0) {
+                iterations.push(cell.value());
+                jumps.push(action);
+            }else {
                 var loops = 1;
                 while (loops > 0) {
                     action++;
@@ -94,9 +99,15 @@ var Interpreter = function (source, tape, pointer,
                         throw error("Mismatched parentheses.");
                     }
 
-                    if (source[action] === "]") {
+                    // we gotta add the ternary if to be
+                    // compliant with the C++ compiler.
+                    if (source[action] === "]"
+                        || source[action] === "}"
+                        || source[action] === ";") {
                         loops--;
-                    } else if (source[action] === "[") {
+                    } else if (source[action] === "["
+                               || source[action] === "{"
+                               || source[action] === "?") {
                         loops++;
                     }
                 }
@@ -104,15 +115,29 @@ var Interpreter = function (source, tape, pointer,
             break;
 
         case "]":
+        case "}":
+        case ";":
             if (jumps.length === 0) {
                 throw error("Mismatched parentheses.");
             }
 
-            if (cell.get("value") != 0) {
-                action = jumps[jumps.length - 1];
-            } else {
-                jumps.pop();
+            if (source[jumps[jumps.length - 1]] === "{") {
+                iterations[iterations.length - 1]--;
+                if (iterations[iterations.length - 1] > 0) {
+                    action = jumps[jumps.length - 1];
+                } else {
+                    iterations.pop();
+                    jumps.pop();
+                }
             }
+            else {
+                if (cell.value() != 0) {
+                    action = jumps[jumps.length - 1];
+                } else {
+                    jumps.pop();
+                }
+            }
+            break;
         }
         return action++;
     }
