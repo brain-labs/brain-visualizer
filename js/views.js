@@ -178,10 +178,22 @@ var InterpreterView = Backbone.View.extend({
         this.begin();
         this.step();
     },
-    out: function (cell) {
-        if (cell.char() == "\n")
-            this.output.append("<br />");
-        this.output.append(cell.char());
+    out: function (cell, index, token) {
+        if (token == ".") {
+            if (cell.char() == "\n") {
+                this.output.append("<br />");
+                return;
+            }
+            this.output.append(cell.char());
+        } else if (token == "#") {
+            this.output.append("Index Pointer: "
+                               + index
+                               + " Value at Index Pointer: "
+                               + cell.value()
+                               + "<br />");
+        } else if (token == "$") {
+            this.output.append((cell.value() / 100).toFixed(2));
+        }
     },
     awaitInput: function (cell) {
         this.input.parent().show();

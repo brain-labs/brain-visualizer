@@ -6,7 +6,7 @@ var Interpreter = function (source, tape, pointer,
      * @tape: Tape model
      * @pointer: Pointer model
      * @out: Output callback
-     * @awaitInput: Input callback 
+     * @awaitInput: Input callback
      *
      * Usage:
      *
@@ -15,7 +15,7 @@ var Interpreter = function (source, tape, pointer,
      *    pointer.get("index") // 1
      *
      * */
-    var tokens = "<>+-.,[]";
+    var tokens = "<>+-.,[]$#";
     var jumps = [], action = 0;
 
     var error = function (message) {
@@ -62,11 +62,13 @@ var Interpreter = function (source, tape, pointer,
             break;
 
         case ",":
-	    awaitInput(cell);
+	          awaitInput(cell);
             break;
 
         case ".":
-            out(cell);
+        case "$":
+        case "#":
+            out(cell, index, token);
             break;
 
         case "[":
@@ -79,7 +81,7 @@ var Interpreter = function (source, tape, pointer,
                     if (action >= source.length) {
                         throw error("Mismatched parentheses.");
                     }
-                    
+
                     if (source[action] === "]") {
                         loops--;
                     } else if (source[action] === "[") {
