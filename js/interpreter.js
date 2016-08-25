@@ -177,7 +177,9 @@ var Interpreter = function (source, tape, pointer,
                 }
             }
             else {
-                if (cell.value() != 0) {
+                if (source[jumps[jumps.length - 1]] === ":") {
+                    jumps.pop();
+                } else if (cell.value() != 0) {
                     action = jumps[jumps.length - 1];
                 } else {
                     jumps.pop();
