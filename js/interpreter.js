@@ -15,7 +15,7 @@ var Interpreter = function (source, tape, pointer,
      *    pointer.get("index") // 1
      *
      * */
-    var tokens = "<>+-.,[]$#*/%{};!";
+    var tokens = "<>+-.,[]$#*/%{}?:;!";
     var jumps = [], action = 0;
     var iterations = [];
 
@@ -86,13 +86,15 @@ var Interpreter = function (source, tape, pointer,
 
         case "[":
         case "{":
+        case "?":
         case "!":
-            if (cell.value() != 0 && token === "[") {
+            if (cell.value() != 0 
+                && (token === "[" || token === "?")) {
                 jumps.push(action);
             } else if (cell.value() > 0 && token === "{") {
                 iterations.push(cell.value());
                 jumps.push(action);
-            }else {
+            } else {
                 if (token === "!" && jumps.length === 0) {
                     throw error("There is no loop to jump out.");
                 }
@@ -101,7 +103,15 @@ var Interpreter = function (source, tape, pointer,
                 while (loops > 0) {
                     action++;
                     if (action >= source.length) {
-                        throw error("Mismatched dsparentheses.");
+                        throw error("Mismatched command.");
+                    }
+
+                    if (loops == 1 
+                        && source[action] === ":"
+                        && token === "?") {
+                        loops--;
+                        jumps.push(action);
+                        continue;
                     }
 
                     // we gotta add the ternary if to be
@@ -130,12 +140,34 @@ var Interpreter = function (source, tape, pointer,
 
         case "]":
         case "}":
+        case ":":
         case ";":
             if (jumps.length === 0) {
-                throw error("Mismatched fd parentheses.");
+                throw error("Mismatched command.");
             }
 
-            if (source[jumps[jumps.length - 1]] === "{") {
+            if (source[jumps[jumps.length - 1]] === "?") {
+                if (token === ":") {
+                    var loops = 1;
+                    while (loops > 0) {
+                        action++;
+                        if (action >= source.length) {
+                            throw error("Mismatched command.");
+                        }
+                        if (source[action] === "]"
+                            || source[action] === "}"
+                            || source[action] === ";") {
+                            loops--;
+                        } else if (source[action] === "["
+                                   || source[action] === "{"
+                                   || source[action] === "?") {
+                            loops++;
+                        }
+                    }
+                }
+
+                jumps.pop();
+            } else if (source[jumps[jumps.length - 1]] === "{") {
                 iterations[iterations.length - 1]--;
                 if (iterations[iterations.length - 1] > 0) {
                     action = jumps[jumps.length - 1];
