@@ -201,6 +201,7 @@ section.machine {
     table td {
         padding: 10px;
         color: #494949;
+        background: #eee;
     }
 
     section#info {

@@ -91,6 +91,18 @@
                 <td>decrement (decrease by one) the byte at the data pointer.</td>
             </tr>
             <tr>
+                <td style="text-align:center"><code>*</code></td>
+                <td>multiply <code>*ptr</code> with <code>*(ptr-1)</code>. Store result in <code>*ptr</code> <code>// format: 2 3 *</code></td>
+            </tr>
+            <tr>
+                <td style="text-align:center"><code>/</code></td>
+                <td>divide <code>*ptr</code> with <code>*(ptr-1)</code>. Store result in <code>*ptr</code> <code>// format: 2 3 /</code></td>
+            </tr>
+            <tr>
+                <td style="text-align:center"><code>%</code></td>
+                <td>divide <code>*ptr</code> with <code>*(ptr-1)</code>. Store the remainder in <code>*ptr</code> <code>// format: 2 3 %</code></td>
+            </tr>
+            <tr>
                 <td style="text-align:center"><code>.</code></td>
                 <td>output the byte at the data pointer.</td>
             </tr>
@@ -108,15 +120,39 @@
             </tr>
             <tr>
                 <td style="text-align:center"><code>[</code></td>
-                <td>if the byte at the data pointer is zero, then instead of moving the <a href="/wiki/Program_Counter" title="Program Counter" class="mw-redirect">instruction pointer</a> forward to the next command, <a href="/wiki/Branch_(computer_science)" title="Branch (computer science)">jump</a> it <i>forward</i> to the command after the <i>matching</i> <code>]</code> command.</td>
+                <td><code>a.k.a (while loop)</code>.If the value at the data pointer is zero, then instead of moving the instruction pointer forward to the next command, jump it forward to the command after the matching <code>]</code> command.</td>
             </tr>
             <tr>
                 <td style="text-align:center"><code>]</code></td>
-                <td>if the byte at the data pointer is nonzero, then instead of moving the instruction pointer forward to the next command, jump it <i>back</i> to the command after the <i>matching</i> <code>[</code> command.</td>
+                <td>jump to its correspondent <code>[</code> .</td>
+            </tr>
+            <tr>
+                <td style="text-align:center"><code>{</code></td>
+                <td><code>a.k.a (for loop)</code>. Iterates <code>'value-at-the-data-pointer' times</code> and needs to be closed with a matching <code>}</code> command. It does not decrease the value at the data pointer. It will only work for positive values greather than zero.</td>
+            </tr>
+            <tr>
+                <td style="text-align:center"><code>}</code></td>
+                <td>jump to its correspondent <code>{</code> .</td>
+            </tr>
+            <tr>
+                <td style="text-align:center"><code>!</code></td>
+                <td><code>a.k.a break</code>. jumps to the end of a loop (<code>[ ]</code> or <code>{ }</code>) .</td>
+            </tr>
+            <tr>
+                <td style="text-align:center"><code>?</code></td>
+                <td><code>a.k.a if</code>. if the value at the data pointer is zero, jumps to the block with <code>:</code> or <code>;</code> and executes the commands one by one up to its correlative <code>;</code>, otherwise, it executes the code until it finds a <code>:</code> or <code>;</code>.</td>
+            </tr>
+            <tr>
+                <td style="text-align:center"><code>:</code></td>
+                <td><code>a.k.a else</code>. it works as an <code>otherwise</code> for <code>?</code>.</td>
+            </tr>
+            <tr>
+                <td style="text-align:center"><code>;</code></td>
+                <td>ends a <code>?</code> or <code>:</code> statement.</td>
             </tr>
             </tbody></table>
 
-        <p><a href="http://en.wikipedia.org/wiki/Brainfuck">http://en.wikipedia.org/wiki/Brainfuck</a></p>
+        <p style="color: #505050;">More information on: <a href="https://github.com/brain-labs/brain">https://github.com/brain-labs/brain</a></p>
 
 
     </section>
