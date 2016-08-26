@@ -231,9 +231,13 @@ var InterpreterView = Backbone.View.extend({
         var lineHeight = this.preview
                              .css('line-height')
                              .substr(0, 2);
-        var nLines = this.preview.height() / lineHeight;
-
-        console.log(nLines);
+        var previewSize = this.preview.height();
+        var currentLine = this.interpreter.currentLine();
+        var nVisibleLines = Math.round(previewSize / lineHeight);
+        if (currentLine % (nVisibleLines + 1) == 0) {
+            var pos = currentLine / (nVisibleLines + 1);
+            this.preview.scrollTop(pos * previewSize);
+        }
     },
     loop: function () {
         this.interval = setInterval(function () {

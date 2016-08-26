@@ -18,6 +18,8 @@ var Interpreter = function (source, tape, pointer,
     var tokens = "<>+-.,[]$#*/%{}?:;!";
     var jumps = [], action = 0;
     var iterations = [];
+    var countLines = 1;
+    var canCountLines = true;
 
     var error = function (message) {
         return {
@@ -26,6 +28,10 @@ var Interpreter = function (source, tape, pointer,
         };
     };
 
+    this.currentLine = function() {
+        return countLines;
+    }
+
     this.next = function () {
         if (action >= source.length) {
             if (jumps.length === 0) throw {
@@ -33,12 +39,14 @@ var Interpreter = function (source, tape, pointer,
                 "message": "End of brain script."
             };
             else {
-                throw error("Mismatched parentheses.");
+                throw error("Mismatched command.");
             }
         }
         // Skip non-code characters
         if (tokens.indexOf(source[action]) === -1) {
-            if(source[action] === '\n') console.log("new line");
+            if(source[action] === '\n' && canCountLines) {
+                countLines++;
+            }
             action++;
             return this.next();
         }
@@ -97,7 +105,7 @@ var Interpreter = function (source, tape, pointer,
                 jumps.push(action);
             } else {
                 if (token === "!" && jumps.length === 0) {
-                    throw error("There is no loop to jump out.");
+                    throw error("There is no loop to jump off.");
                 }
 
                 var loops = 1;
@@ -172,9 +180,11 @@ var Interpreter = function (source, tape, pointer,
                 iterations[iterations.length - 1]--;
                 if (iterations[iterations.length - 1] > 0) {
                     action = jumps[jumps.length - 1];
+                    canCountLines = false;
                 } else {
                     iterations.pop();
                     jumps.pop();
+                    canCountLines = true;
                 }
             }
             else {
@@ -182,8 +192,10 @@ var Interpreter = function (source, tape, pointer,
                     jumps.pop();
                 } else if (cell.value() != 0) {
                     action = jumps[jumps.length - 1];
+                    canCountLines = false;
                 } else {
                     jumps.pop();
+                    canCountLines = true;
                 }
             }
             break;
