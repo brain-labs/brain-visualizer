@@ -27,7 +27,7 @@ var Cell = Backbone.Model.extend({
         this.set("value", this.value() * prevCell.value());
     },
     div: function(prevCell) {
-        this.set("value", this.value() / prevCell.value());
+        this.set("value", Math.round(this.value() / prevCell.value()));
     },
     rem: function(prevCell) {
         this.set("value", this.value() % prevCell.value());
