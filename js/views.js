@@ -122,6 +122,7 @@ var InterpreterView = Backbone.View.extend({
         this.pointer = options.pointer;
         this.tape = options.tape;
         this.editor = options.editor;
+        this.countLine = 0;
     },
     events: {
         "click #run": "run",
@@ -216,8 +217,9 @@ var InterpreterView = Backbone.View.extend({
         this.removeCaret();
 
         var source = this.editor.val(),
-            caret = $("<span>")
+            caret = $("<span >")
             .addClass("caret")
+            .addClass("caret-color")
             .html(source.charAt(index));
 
         this.preview
@@ -225,6 +227,13 @@ var InterpreterView = Backbone.View.extend({
             .append(source.substr(0, index))
             .append(caret)
             .append(source.substr(index + 1));
+
+        var lineHeight = this.preview
+                             .css('line-height')
+                             .substr(0, 2);
+        var nLines = this.preview.height() / lineHeight;
+
+        console.log(nLines);
     },
     loop: function () {
         this.interval = setInterval(function () {

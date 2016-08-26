@@ -144,10 +144,16 @@ section.machine {
 
         }
 
-        section.editor span.caret {
+        section.editor {
             border-radius: 4px;
             background-color: #fff;
             color: #000;
+        }
+
+        span.caret {
+            border-radius: 4px;
+            background-color: #fff;
+            color: red;
         }
 
         section.editor .button {

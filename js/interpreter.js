@@ -38,6 +38,7 @@ var Interpreter = function (source, tape, pointer,
         }
         // Skip non-code characters
         if (tokens.indexOf(source[action]) === -1) {
+            if(source[action] === '\n') console.log("new line");
             action++;
             return this.next();
         }
