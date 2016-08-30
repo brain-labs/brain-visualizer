@@ -181,6 +181,7 @@ var InterpreterView = Backbone.View.extend({
     runExample: function(example) {
         var exampleStr = example.text().replace("Try it!", "");
         this.editor.val(exampleStr);
+        this.buttons.run();
         this.run();
     },
     firstStep: function () {
