@@ -216,12 +216,11 @@ section.machine {
         margin: 5px 15px 10px;
     }
 
-    section.examples #source-examples {
+    section.examples .source {
         width: 815px;
         line-height: 1.3;
         background-color: #5b5b5b;
         border: 3px solid #3e3e3e;
-        resize: vertical;
         outline: none;
         font-size: 20px;
         color: #fff;
@@ -231,4 +230,15 @@ section.machine {
         display: block;
         overflow: hidden;
         word-wrap: normal;
+    }
+
+    section.examples .button {
+        padding: 10px 20px;
+        margin-right: 5px;
+        margin-top: 5px;
+        background-color: #eeeeee;
+        display: block;
+        float: right;
+        color: gray;
+        text-decoration: none;
     }

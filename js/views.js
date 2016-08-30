@@ -146,6 +146,9 @@ var InterpreterView = Backbone.View.extend({
             pointer: this.pointer,
             interpreter: this
         }).render();
+        new ExamplesView({
+            interpreter: this
+        }).render();
         this.preview.hide();
     },
     showPreview: function () {
@@ -174,6 +177,11 @@ var InterpreterView = Backbone.View.extend({
     run: function () {
         this.begin();
         this.loop();
+    },
+    runExample: function(example) {
+        var exampleStr = example.text().replace("Try it!", "");
+        this.editor.val(exampleStr);
+        this.run();
     },
     firstStep: function () {
         this.begin();
@@ -318,5 +326,21 @@ var ButtonSwitchView = Backbone.View.extend({
         this.$el.find("#step, #continue").hide();
         this.$el.find("#pause").show();
         return false;
+    }
+});
+
+var ExamplesView = Backbone.View.extend({
+    el: ".examples",
+    initialize: function (options) {
+        this.interpreter = options.interpreter;
+    },
+    render: function() {
+        this.fibonacci = this.$el.find("#source-fibonacci");
+    },
+    events: {
+        "click #fibonacci-btn": "runFibonacci"
+    },
+    runFibonacci: function() {
+        this.interpreter.runExample(this.fibonacci);
     }
 });
