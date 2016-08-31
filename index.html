@@ -13,10 +13,11 @@
 <body>
 
     <header>
-        <!--p style="text-align:center;padding:2%;color:white;background:red;">
-	    Brain is not yet implemented in this interpreter.</br>
-	    It works with Brainfuck code though :)
-	</p-->
+        <p style="text-align:center;padding:2%;color:white;background:#ECB86F;">
+	    Brain Online Visualizer does not perform any optimization on the interpreted code.</br>
+	    If you want to run it faster, please visit the Brain Compiler project:
+        <a class="wlink" href="https://github.com/brain-labs/brain">https://github.com/brain-labs/brain</a>
+	</p>
     </header>
 
     <div id="interpreter">
@@ -106,8 +107,21 @@
 
     <section class="examples">
         <h3>Examples</h3>
+        <h4 class="h4list">- If-Else</h4>
+        <div style="height:310px;" class="source" id="source-if-else">
++++       make the value 3 at cell 0
+[         start infinite loop
+    ?     if cell 0 greater than 0 break
+        ! 
+    :     else add 1
+        +
+    ;
+]
+#         the value at cell 0 is 3
+<a class="button" href="#" id="if-else-btn">Try it!</a>
+        </div>
         <h4 class="h4list">- Fibonacci</h4>
-        <div style="height:250px;" class="source" id="source-fibonacci">
+        <div style="height:230px;" class="source" id="source-fibonacci">
 +#>+# initialization
 [
   >+*       copy the value from cell 1 to cell 2
@@ -115,6 +129,18 @@
   >>#       move to cell 2 and print it out
 ]
 <a class="button" href="#" id="fibonacci-btn">Try it!</a>
+        </div>
+        <h4 class="h4list">- Hell Box</h4>
+        <div style="height:280px;" class="source" id="source-hellbox">
+[]><[][]><[][]><[][]><[][]><[][]><[][]><[][]><[][]><[][]><[]
+[]>+>+>++>++<[>[->++++<<+++>]<<]>----.>->+.+++++++..+++.<+[]
+[ This is hellbox, a 104 command Hello World               ]
+[   >+>+>++>++<[>[->++++<<+++>]<<]>----.>>+.+++++++..+++   ]
+[   .>.<<<+++++++++++++++.>>.+++.------.--------.>+.>++.   ]
+[ -- Robert de Bath -- 2014                                ]
+[]>>.<<<+++++++++++++++.>>.+++.------.--------.>+.+>++.<<<[]
+[]><[][]><[][]><[][]><[][]><[][]><[][]><[][]><[][]><[][]><[]
+<a class="button" href="#" id="hellbox-btn">Try it!</a>
         </div>
     </section>
     <section id="info">
@@ -225,7 +251,7 @@
     </script>
 
     <iframe src="https://ghbtns.com/github-btn.html?user=brain-labs&repo=brain-visualizer&type=star&count=true&size=large"
-            style="position: absolute; top: 5px; right: 0; border: 0;"
+            style="position: absolute; top: 16px; right: 0; border: 0;"
             frameborder="0"
             scrolling="0"
             width="160px"

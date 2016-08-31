@@ -213,7 +213,7 @@ section.machine {
     }
 
     section.examples .h4list {
-        margin: 5px 15px 10px;
+        margin: 20px 15px 10px;
     }
 
     section.examples .source {
@@ -241,4 +241,8 @@ section.machine {
         float: right;
         color: gray;
         text-decoration: none;
+    }
+
+    .wlink {
+        color: white;
     }

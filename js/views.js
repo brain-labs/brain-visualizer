@@ -337,11 +337,21 @@ var ExamplesView = Backbone.View.extend({
     },
     render: function() {
         this.fibonacci = this.$el.find("#source-fibonacci");
+        this.hellbox = this.$el.find("#source-hellbox");
+        this.ifelse = this.$el.find("#source-if-else");
     },
     events: {
-        "click #fibonacci-btn": "runFibonacci"
+        "click #fibonacci-btn": "runFibonacci",
+        "click #hellbox-btn": "runHellBox",
+        "click #if-else-btn": "runIfElse",
     },
     runFibonacci: function() {
         this.interpreter.runExample(this.fibonacci);
+    },
+    runHellBox: function() {
+        this.interpreter.runExample(this.hellbox);
+    },
+    runIfElse: function() {
+        this.interpreter.runExample(this.ifelse);
     }
 });
