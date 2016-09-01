@@ -339,11 +339,15 @@ var ExamplesView = Backbone.View.extend({
         this.fibonacci = this.$el.find("#source-fibonacci");
         this.hellbox = this.$el.find("#source-hellbox");
         this.ifelse = this.$el.find("#source-if-else");
+        this.pow = this.$el.find("#source-pow");
+        this.evenOrOdd = this.$el.find("#source-even-or-odd");
     },
     events: {
         "click #fibonacci-btn": "runFibonacci",
         "click #hellbox-btn": "runHellBox",
         "click #if-else-btn": "runIfElse",
+        "click #pow-btn": "runPow",
+        "click #even-or-odd-btn": "runEvenOrOdd",
     },
     runFibonacci: function() {
         this.interpreter.runExample(this.fibonacci);
@@ -353,5 +357,11 @@ var ExamplesView = Backbone.View.extend({
     },
     runIfElse: function() {
         this.interpreter.runExample(this.ifelse);
+    },
+    runPow: function() {
+        this.interpreter.runExample(this.pow);
+    },
+    runEvenOrOdd: function() {
+        this.interpreter.runExample(this.evenOrOdd);
     }
 });

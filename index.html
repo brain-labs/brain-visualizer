@@ -107,6 +107,13 @@
 
     <section class="examples">
         <h3>Examples</h3>
+        <h4 class="h4list">- Pow</h4>
+        <div style="height:155px;" class="source" id="source-pow">
+++++++++++   make number 10 at cell 0
+>+***        make 10 to its cube
+#            print out debug information
+<a class="button" href="#" id="pow-btn">Try it!</a>
+        </div>
         <h4 class="h4list">- If-Else</h4>
         <div style="height:310px;" class="source" id="source-if-else">
 +++       make the value 3 at cell 0
@@ -117,7 +124,7 @@
         +
     ;
 ]
-#         the value at cell 0 is 3
+#         print out debug information with value 3 at cell 0
 <a class="button" href="#" id="if-else-btn">Try it!</a>
         </div>
         <h4 class="h4list">- Fibonacci</h4>
@@ -141,6 +148,39 @@
 []>>.<<<+++++++++++++++.>>.+++.------.--------.>+.+>++.<<<[]
 []><[][]><[][]><[][]><[][]><[][]><[][]><[][]><[][]><[][]><[]
 <a class="button" href="#" id="hellbox-btn">Try it!</a>
+        </div>
+        <h4 class="h4list">- Even or Odd</h4>
+        <div style="height:835px;" class="source" id="source-even-or-odd">
+++           make number 2 at cell 0
+>+++++       make the number to check if it is even or odd at cell 1
+>++++++++++  make number 10 at cell 2
+>+**         make 10 square at cell 3
+<[-]         clear the cell 2
++*           copy the number from cell 1 to cell 2
+>*           multiply the numbers at cell 3 and 2 
+<<%          calc of the number at cell 1 mod 2
+>>$          print out the value of the number at cell 3
+>++++++++++
+>+++*++.     make number 32 at cell 5 and print it out ' '
+<{>>+<<}     copy the number 10 to the cell 6
+>>>+**+++++. print out 'i'
+++++++++++.  print out 's'
+<<.          print out ' '
+<<<<
+?            check if the number at cell 1 is odd
+    >>>>>>----.  print out 'o'
+    -----------. print out 'd'
+    .            print out 'd'
+:            otherwise it is even
+    >>>>>>>+*   copy the number
+    <<++++      make the number 14 at cell 6
+    {>>-<<}>>.  subtract it from 115 and print out 'e'
+    <+++.       print out 'v'
+    >.          print out 'e'
+    <--------.  print out 'n'
+;
+
+<a class="button" href="#" id="even-or-odd-btn">Try it!</a>
         </div>
     </section>
     <section id="info">

@@ -137,6 +137,11 @@ var Interpreter = function (source, tape, pointer,
                                 jumps.pop();
                                 iterations.pop();
                             }
+                            else {
+                                // if is not a real loop
+                                jumps.pop();
+                                loops++;
+                            }
                         }
                     } else if (source[action] === "["
                                || source[action] === "{"
