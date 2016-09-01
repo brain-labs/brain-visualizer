@@ -1,12 +1,12 @@
 <p align="center">
   <a href="">
-    <img alt="Logo" src="./img/brain.png">
+    <img alt="Logo" src="./img/brain.png" width="100px">
   </a>
 </p>
 
 ### Brain Visualizer
 
-__Brain Visualizer__ is based on the [Brainfuck-Visualizer](http://fatiherikli.github.io/brainfuck-visualizer). Brain Visualizer is only a __JS interpreter__ for the [Brain Language](https://github.com/brain-labs/brain), thus it is not as fast as the __Brain Compiler__. 
+__Brain Visualizer__ is based on the [Brainfuck-Visualizer](http://fatiherikli.github.io/brainfuck-visualizer). Brain Visualizer is only an __Online Javascript Interpreter__ for the [Brain Language](https://github.com/brain-labs/brain), thus it is not as fast as the __Brain Compiler__ and should be used only for understanding and testing the language. 
 
 ### What is Brain?
 
@@ -30,7 +30,7 @@ More information: <https://github.com/brain-labs/brain>
 - Asger Hautop Drewsen ([tyilo](https://github.com/Tyilo))
 - Dwillie ([dwille](https://github.com/dwillie))
 - Eugene Sharygin ([eush77](https://github.com/eush77))
-- Luiz Peres ([luizperes]((https://github.com/luizperes)))
+- Luiz Peres ([luizperes](https://github.com/luizperes))
 
 ### Original Demo
 <http://fatiherikli.github.io/brainfuck-visualizer>
